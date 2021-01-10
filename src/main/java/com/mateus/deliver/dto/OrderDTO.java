@@ -37,15 +37,15 @@ public class OrderDTO implements Serializable{
 	}
 	
 
-	public OrderDTO(Order order) {
+	public OrderDTO(Order entity) {
 		super();
-		this.id = order.getId();
-		this.address = order.getAddress();
-		this.latitude = order.getLatitude();
-		this.longitude = order.getLongitude();
-		this.moment = order.getMoment();
-		this.status = order.getStatus();
-		products = order.getProducts().stream()
+		this.id = entity.getId();
+		this.address = entity.getAddress();
+		this.latitude = entity.getLatitude();
+		this.longitude = entity.getLongitude();
+		this.moment = entity.getMoment();
+		this.status = entity.getStatus();
+		products = entity.getProducts().stream()
 				.map(x -> new ProductDTO(x)).collect(Collectors.toList());
 	}
 
@@ -101,6 +101,32 @@ public class OrderDTO implements Serializable{
 		return products;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		OrderDTO other = (OrderDTO) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+
+	
 	
 	
 }
